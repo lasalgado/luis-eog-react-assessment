@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
 import NowWhat from './components/NowWhat';
-import MetricSelector from './components/MetricSelector';
+import MetricSelector from './Features/MetricSelector';
 import { store } from './redux/store';
 
 const theme = createTheme({

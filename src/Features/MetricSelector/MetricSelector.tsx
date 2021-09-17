@@ -8,7 +8,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useStyles } from './Metric.styles';
-import CardHeader from '../CardHeader';
+import CardHeader from '../../components/CardHeader';
+import CheckboxMetrics from '../../components/ChecboxMetrics';
 
 const GET_METRICS = gql`
   query metrics {
@@ -21,8 +22,6 @@ const MetricSelector: FC = () => {
 
   const { loading, error, data } = useQuery(GET_METRICS);
 
-  console.log(data);
-
   return (
     <Container fixed className={classes.container}>
       <Card variant="outlined" className={classes.container}>
@@ -30,6 +29,7 @@ const MetricSelector: FC = () => {
         <CardContent>
           {loading && <LinearProgress />}
           {error && <Typography align='center' variant="h6" gutterBottom component="div">Information could not be loaded</Typography>}
+          {!loading && !error && <CheckboxMetrics metrics={data.getMetrics} />}
         </CardContent>
       </Card>
     </Container>
