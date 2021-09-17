@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
+import { Provider } from 'react-redux';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
 import NowWhat from './components/NowWhat';
+import MetricSelector from './components/MetricSelector';
+import { store } from './redux/store';
 
 const theme = createTheme({
   palette: {
@@ -21,15 +25,25 @@ const theme = createTheme({
   },
 });
 
-const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Wrapper>
-      <Header />
-      <NowWhat />
-      <ToastContainer />
-    </Wrapper>
-  </MuiThemeProvider>
+const client = new ApolloClient({
+  uri: 'https://react.eogresources.com/graphql',
+  cache: new InMemoryCache(),
+});
+
+const App: FC = () => (
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <Wrapper>
+          <Header />
+          <MetricSelector />
+          <NowWhat />
+          <ToastContainer />
+        </Wrapper>
+      </MuiThemeProvider>
+    </Provider>
+  </ApolloProvider>
 );
 
 export default App;
