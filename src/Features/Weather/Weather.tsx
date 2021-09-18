@@ -4,8 +4,7 @@ import { useGeolocation } from 'react-use';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Typography } from '@material-ui/core';
 import Chip from '../../components/Chip';
-
-const toF = (c: number) => (c * 9) / 5 + 32;
+import { toF } from '../../utils/utils';
 
 const query = gql`
   query ($latLong: WeatherQuery!) {

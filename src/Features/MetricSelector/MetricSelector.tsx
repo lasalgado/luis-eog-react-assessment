@@ -3,7 +3,6 @@ import { useQuery, gql } from '@apollo/client';
 import {
   Card,
   CardContent,
-  Container,
   LinearProgress,
   Typography,
 } from '@material-ui/core';
@@ -23,16 +22,14 @@ const MetricSelector: FC = () => {
   const { loading, error, data } = useQuery(GET_METRICS);
 
   return (
-    <Container fixed className={classes.container}>
-      <Card variant="outlined" className={classes.container}>
-        <CardHeader title="Select metrics" />
-        <CardContent>
-          {loading && <LinearProgress />}
-          {error && <Typography align='center' variant="h6" gutterBottom component="div">Information could not be loaded</Typography>}
-          {!loading && !error && <CheckboxMetrics metrics={data.getMetrics} />}
-        </CardContent>
-      </Card>
-    </Container>
+    <Card variant="outlined" className={classes.container}>
+      <CardHeader title="Select metrics" />
+      <CardContent>
+        {loading && <LinearProgress />}
+        {error && <Typography align='center' variant="h6" gutterBottom component="div">Information could not be loaded</Typography>}
+        {!loading && !error && <CheckboxMetrics metrics={data.getMetrics} />}
+      </CardContent>
+    </Card>
   );
 };
 

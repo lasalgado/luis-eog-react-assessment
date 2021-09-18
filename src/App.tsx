@@ -5,11 +5,14 @@ import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
+import { Container } from '@material-ui/core';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-import NowWhat from './components/NowWhat';
 import MetricSelector from './Features/MetricSelector';
+import MeasuresContainer from './Features/MeasuresContainer';
 import { store } from './redux/store';
+
+import { useStyles } from './App.styles';
 
 const theme = createTheme({
   palette: {
@@ -30,20 +33,26 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const App: FC = () => (
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <Wrapper>
-          <Header />
-          <MetricSelector />
-          <NowWhat />
-          <ToastContainer />
-        </Wrapper>
-      </MuiThemeProvider>
-    </Provider>
-  </ApolloProvider>
-);
+const App: FC = () => {
+  const classes = useStyles();
+
+  return (
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          <Wrapper>
+            <Header />
+            <Container fixed className={classes.container}>
+              <MetricSelector />
+              <MeasuresContainer />
+              <ToastContainer />
+            </Container>
+          </Wrapper>
+        </MuiThemeProvider>
+      </Provider>
+    </ApolloProvider>
+  );
+};
 
 export default App;
