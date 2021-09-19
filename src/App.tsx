@@ -1,5 +1,13 @@
 import React, { FC } from 'react';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import {
+  split,
+  HttpLink,
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+} from '@apollo/client';
+import { WebSocketLink } from '@apollo/client/link/ws';
 import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -28,8 +36,31 @@ const theme = createTheme({
   },
 });
 
-const client = new ApolloClient({
+const httpLink = new HttpLink({
   uri: 'https://react.eogresources.com/graphql',
+});
+
+const wsLink = new WebSocketLink({
+  uri: 'ws://react.eogresources.com/graphql',
+  options: {
+    reconnect: true,
+  },
+});
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition'
+      && definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
+
+const client = new ApolloClient({
+  link: splitLink,
   cache: new InMemoryCache(),
 });
 

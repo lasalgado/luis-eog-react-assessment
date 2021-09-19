@@ -24,4 +24,8 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(0.3),
   },
+  linear: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
 }));

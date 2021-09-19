@@ -41,10 +41,4 @@ export const formatDT = ({ date, locale = dateLocale }: { date: Date; locale?: s
 
 export const timeToStringSingle = (timestamp:number) => new Date(timestamp).toLocaleString();
 
-export const formatUnits = (unit: string) => {
-  if (unit in unitsFormats) {
-    return unitsFormats[unit];
-  }
-
-  return '';
-};
+export const formatUnits = (unit: string) => (unit in unitsFormats ? unitsFormats[unit] : '');
