@@ -19,7 +19,6 @@ import Wrapper from './components/Wrapper';
 import MetricSelector from './Features/MetricSelector';
 import MeasuresContainer from './Features/MeasuresContainer';
 import { store } from './redux/store';
-
 import { useStyles } from './App.styles';
 
 const theme = createTheme({

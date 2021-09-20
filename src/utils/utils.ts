@@ -21,15 +21,12 @@ const unitsFormats: { [index:string]:string } = {
  */
 export const toF = (c: number) => (c * 9) / 5 + 32;
 
-export const updateTime = ({
-  timestamp,
-  minutes,
-  add = false,
-}: {
-  timestamp: number;
-  minutes: number;
-  add: boolean;
-}) => {
+export const updateTime = (
+  timestamp: number,
+  minutes: number,
+  add?: boolean,
+) => {
+  console.log(timestamp);
   const time = minutes * 60 * 1000;
 
   return timestamp + (add ? time : -time);
