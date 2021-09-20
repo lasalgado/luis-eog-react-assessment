@@ -14,6 +14,6 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    rowGap: '3vh',
+    gap: '2vw 2vw',
   },
 }));

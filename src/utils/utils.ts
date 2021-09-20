@@ -26,7 +26,6 @@ export const updateTime = (
   minutes: number,
   add?: boolean,
 ) => {
-  console.log(timestamp);
   const time = minutes * 60 * 1000;
 
   return timestamp + (add ? time : -time);

@@ -57,7 +57,7 @@ const CheckboxMetrics: FC<{ metrics: string[] }> = ({ metrics }) => {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box display="flex" justifyContent="center">
       <FormControl component="fieldset" variant="standard">
         <FormLabel component="legend">Available metrics</FormLabel>
         <FormGroup className={classes.group}>{renderComp()}</FormGroup>
