@@ -1,7 +1,7 @@
 const dateFormat: Intl.DateTimeFormatOptions = {
   day: 'numeric',
   year: 'numeric',
-  month: 'long',
+  month: 'short',
   hour: 'numeric',
   minute: 'numeric',
   second: 'numeric',
@@ -43,8 +43,8 @@ export const updateTime = (
   return timestamp + (add ? time : -time);
 };
 
-export const formatDT = ({ date, locale = dateLocale }: { date: Date; locale?: string }) => (
-  date.toLocaleString(locale, dateFormat)
+export const formatDT = (timestamp: number) => (
+  new Date(timestamp).toLocaleString(dateLocale, dateFormat)
 );
 
 export const timeToStringSingle = (timestamp: number) => new Date(timestamp).toLocaleString();

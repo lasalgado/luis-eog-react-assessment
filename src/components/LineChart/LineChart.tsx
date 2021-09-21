@@ -1,19 +1,25 @@
 import React from 'react';
 import {
+  Card,
+  CardContent,
+} from '@material-ui/core';
+import {
   LineChart,
   Line,
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
 } from 'recharts';
+import CardHeader from '../CardHeaderTooltip';
 import {
   timeToMins,
   formatUnits,
-  timeToStringSingle,
+  // timeToStringSingle,
   getColor,
+  formatDT,
 } from '../../utils/utils';
 import { IChartData } from '../../types/interfaces';
+import { useStyles } from './LineChart.styles';
 
 const customizedAxisTick = (props: { x: any; y: any; payload: any }) => {
   const { x, y, payload } = props;
@@ -36,6 +42,32 @@ const customizedYAxisTick = (props: { x: any; y: any; payload: any }) => {
       </text>
     </g>
   );
+};
+
+const CustomTooltip = (props: any) => {
+  const classes = useStyles();
+  const { active, payload, label } = props;
+
+  // console.log(payload);
+
+  if (active && payload && payload.length) {
+    return (
+      <Card variant="outlined" className={classes.root}>
+        <CardHeader title={formatDT(label)} className={classes.header} />
+        <CardContent className={classes.content}>
+          {payload.map((line: any) => (
+            <p className={classes.infoLine} key={`tool-info-${line.name}`}>
+              &nbsp;<i>{line.name}:&nbsp;</i>
+              <span className='value'>{line.value}</span>
+              <span className='unit'>&nbsp;{formatUnits(line.payload.unit)}</span>
+            </p>
+          ))}
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return null;
 };
 
 const RenderLineChart = (chartData: { series: IChartData[], units: string[] }) => {
@@ -77,13 +109,9 @@ const RenderLineChart = (chartData: { series: IChartData[], units: string[] }) =
         />
       ))}
       <Tooltip
-        labelFormatter={
-          (timestamp: number): string => timeToStringSingle(timestamp)
-        }
+        content={<CustomTooltip />}
         isAnimationActive={false}
-        formatter={(value: any, name: any, props: any) => `${value} ${formatUnits(props.payload.unit)}`}
       />
-      <Legend verticalAlign="bottom" height={60} />
       {series.map((s, index) => {
         const unit = s.data.length > 0 ? s.data[0].unit : '';
 
