@@ -22,7 +22,6 @@ const MeasuresContainer: FC = () => {
     skip: beat > -1 || (!selectedMetrics || selectedMetrics.length <= 0),
     onCompleted: (dataCompleted) => {
       setBeat(dataCompleted.heartBeat);
-      console.log('entra');
     },
   });
 

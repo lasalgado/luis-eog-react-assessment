@@ -14,6 +14,18 @@ const unitsFormats: { [index:string]:string } = {
   '%': '%',
 };
 
+const arrayColors = [
+  '#f44336',
+  '#e91e63',
+  '#9c27b0',
+  '#2196f3',
+  '#ff9800',
+  '#357a38',
+  '#008394',
+  '#ffeb3b',
+  '#795548',
+];
+
 /**
  * Conversion from celsius to fraenheit
  * @param c Receives a number in celsius to be converted
@@ -48,4 +60,12 @@ export const timeToMins = (timestamp: number) => {
   };
 
   return aux.toLocaleString(dateLocale, format);
+};
+
+export const getColor = (index: number): string => {
+  if (index <= arrayColors.length) {
+    return arrayColors[index];
+  }
+
+  return Math.floor(Math.random() * 16777215).toString(16);
 };
