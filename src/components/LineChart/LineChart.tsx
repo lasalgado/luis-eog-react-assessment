@@ -123,7 +123,6 @@ const RenderLineChart = (chartData: { series: IChartData[], units: string[] }) =
             stroke={getColor(index)}
             type='monotone'
             dot={false}
-            activeDot={false}
             isAnimationActive={false}
           />
         );
