@@ -48,8 +48,6 @@ const CustomTooltip = (props: any) => {
   const classes = useStyles();
   const { active, payload, label } = props;
 
-  // console.log(payload);
-
   if (active && payload && payload.length) {
     return (
       <Card variant="outlined" className={classes.root}>
@@ -58,7 +56,7 @@ const CustomTooltip = (props: any) => {
           {payload.map((line: any) => (
             <p className={classes.infoLine} key={`tool-info-${line.name}`}>
               &nbsp;<i>{line.name}:&nbsp;</i>
-              <span className='value'>{line.value}</span>
+              <span className='value'>{line.payload.value}</span>
               <span className='unit'>&nbsp;{formatUnits(line.payload.unit)}</span>
             </p>
           ))}
