@@ -35,6 +35,17 @@ export const formatDT = ({ date, locale = dateLocale }: { date: Date; locale?: s
   date.toLocaleString(locale, dateFormat)
 );
 
-export const timeToStringSingle = (timestamp:number) => new Date(timestamp).toLocaleString();
+export const timeToStringSingle = (timestamp: number) => new Date(timestamp).toLocaleString();
 
 export const formatUnits = (unit: string) => (unit in unitsFormats ? unitsFormats[unit] : '');
+
+export const timeToMins = (timestamp: number) => {
+  const aux = new Date(timestamp);
+
+  const format: Intl.DateTimeFormatOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+
+  return aux.toLocaleString(dateLocale, format);
+};

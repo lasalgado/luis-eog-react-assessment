@@ -1,9 +1,8 @@
 import React, {
   FC,
-  useState,
   useReducer,
 } from 'react';
-import { useSubscription, useQuery, gql } from '@apollo/client';
+import { useSubscription, gql } from '@apollo/client';
 import { Box } from '@material-ui/core';
 import { useStyles } from './MetricsDisplay.styles';
 import MetricCard from '../../components/MetricCard';
@@ -12,12 +11,6 @@ import { getSelected } from '../../redux/metrics/selector';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { MEASURE_FIELDS } from '../../grapql/fragments';
 import { setNewValue } from '../../redux/measurements/reducer';
-
-const BEAT_SERVER = gql`
-  query beat {
-    heartBeat
-  }
-`;
 
 const NEW_MEAUSUREMENT_SUBSCRIPTION = gql`
   ${MEASURE_FIELDS}
@@ -51,10 +44,10 @@ function reducer(state: ISelectedMetrics[], action: Action): ISelectedMetrics[] 
 
 const initialState: ISelectedMetrics[] = [];
 
-const MetricsDisplay: FC = () => {
+const MetricsDisplay: FC<{ beat: number }> = ({ beat }) => {
   const dispatch = useAppDispatch();
   const classes = useStyles();
-  const [beat, setBeat] = useState(-1);
+  // const [beat, setBeat] = useState(-1);ß
   const selectedMetrics = useAppSelector(getSelected);
   const [metricsDisplayed, dispatchDisplayed] = useReducer(reducer, initialState);
 
@@ -79,13 +72,6 @@ const MetricsDisplay: FC = () => {
       });
     }
   };
-
-  useQuery(BEAT_SERVER, {
-    skip: beat > -1,
-    onCompleted: (dataCompleted) => {
-      setBeat(dataCompleted.heartBeat);
-    },
-  });
 
   useSubscription(NEW_MEAUSUREMENT_SUBSCRIPTION, {
     onSubscriptionData: (subscriptionInfo) => {
